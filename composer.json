@@ -1,0 +1,22 @@
+{
+    "name": "nostop8/rest-api-doc",
+    "type": "yii2-extension",
+    "description": "Simple documentation generator for Yii2 REST applications based on defined API endpoints and actions annotations.",
+    "keywords": ["yii2", "rest", "api", "generator", "documentation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Volodymyr Dovbenko",
+            "email": "nostop8@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/jquery": ">=1.11.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "nostop8\\yii2\\rest_api_doc\\": ""
+        }
+    }
+}
