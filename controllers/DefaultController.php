@@ -67,7 +67,7 @@ class DefaultController extends \yii\base\Controller
 
             $rule['params'] = $params;
 
-            list($controller, $actionID) = $this->module->createController($generatedRule->route);
+            list($controller, $actionID) = \Yii::$app->createController($generatedRule->route);
 
             try {
                 $methodName = 'action' . BaseInflector::id2camel($actionID);
