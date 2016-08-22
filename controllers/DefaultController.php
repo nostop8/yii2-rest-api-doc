@@ -84,7 +84,8 @@ class DefaultController extends \yii\base\Controller
                 $rule['expand'] = $this->_findElements($methodInfo->getDocComment(), 'Rest Expand');
                 $rule['description'] = $this->_findString($methodInfo->getDocComment(), 'Rest Description');
             } catch (\Exception $ex) {
-                // Silence.
+                // Silence, because we do not require description of REST
+                // ActiveController method. TODO: add some warning.
             }
 
             if (!empty($rule['fields'])) {
