@@ -4,7 +4,7 @@ Simple documentation generator for Yii2 REST applications based on defined API e
 ## Installation
  - Run `composer require nostop8/rest-api-doc`;
 
-Alternatively add into `require` section of your `composer.json` following string `"nostop8/rest-api-doc": "dev-master"` and run `composer update`
+Alternatively add into `require` section of your `composer.json` following string `"nostop8/rest-api-doc": "1.0"` and run `composer update`
  - In your application config file inside `modules` section add
 ```
 'modules' => [
