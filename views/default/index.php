@@ -102,7 +102,7 @@ $methodColorMap = [
                                                     <?php endforeach; ?>
                                                 </fieldset>
                                             <?php endif; ?>
-                                            <?php if (!in_array($rule['method'], ['GET', 'DELETE'])) : ?>
+                                            <?php if (!in_array($rule['method'], ['GET', 'DELETE']) && empty($rule['fileFields'])) : ?>
                                                 <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-lg-7">
@@ -120,6 +120,16 @@ $methodColorMap = [
                                                             </div>
                                                         <?php endif; ?>
                                                     </div>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if (!empty($rule['fileFields'])) : ?>
+                                                <div class="files">
+                                                    <?php foreach ($rule['fileFields'] as $field) : ?>
+                                                        <div class="form-group">
+                                                            <label><?= ucfirst($field) ?></label>
+                                                            <input name="<?= $field ?>" class="form-control" type="file" />
+                                                        </div>
+                                                    <?php endforeach; ?>
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group buttons">

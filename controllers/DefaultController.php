@@ -89,7 +89,9 @@ class DefaultController extends \yii\base\Controller
             }
 
             if (!empty($rule['fields'])) {
-                $rule['fields'] = $this->_fieldsFlip($rule['fields']);
+                $fileFields = [];
+                $rule['fields'] = $this->_fieldsFlip($rule['fields'], $fileFields);
+                $rule['fileFields'] = $fileFields;
             }
 
             $rules[] = $rule;
@@ -102,15 +104,21 @@ class DefaultController extends \yii\base\Controller
         return $rules;
     }
 
-    function _fieldsFlip($fields)
+    function _fieldsFlip($fields, &$fileFields = [])
     {
         $flipped = [];
         foreach ($fields as $key => $field) {
             if (is_array($field)) {
-                $flipped[$key] = $this->_fieldsFlip($field);
+                $flipped[$key] = $this->_fieldsFlip($field, $fileFields);
             } else {
                 if (substr($field, 0, 1) == '_') {
                     $field = substr($field, 1);
+                } elseif (strpos($field, ':')) {
+                    list($fieldName, $fieldType) = explode(':', $field);
+                    if ($fieldType == 'file') {
+                        $fileFields[] = $fieldName;
+                        continue;
+                    }
                 }
                 $flipped[$field] = '';
             }

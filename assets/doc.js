@@ -14,10 +14,10 @@
 
     function escapeHtml(text) {
         return text
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/(?:\r\n|\r|\n)/g, '<br/>')
-                .replace(/\s/g, "&nbsp;");
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/(?:\r\n|\r|\n)/g, '<br/>')
+            .replace(/\s/g, "&nbsp;");
     }
 
     $(document).ready(function () {
@@ -39,7 +39,7 @@
             $bodyField.val(prettify($(this).text()));
         });
 
-        $('#token, #base_url').each(function() {
+        $('#token, #base_url').each(function () {
             $(this).val(localStorage.getItem('rest_api_doc_' + $(this).attr('id')));
         });
 
@@ -82,7 +82,17 @@
             $('.data', response).addClass('hidden');
             $('.data .element', response).text('');
 
-            var ajax = $.ajax({
+            var formData = {};
+            if ($('.files', form).length) {
+                formData = {
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                };
+            }
+
+            var ajaxParams = $.extend({
                 url: $('#base_url').val() + url,
                 method: method,
                 data: body,
@@ -91,7 +101,9 @@
                 headers: {
                     Authorization: 'Bearer ' + $('#token').val()
                 }
-            }).done(function (data, textStatus, jqXHR) {
+            }, formData);
+
+            var ajax = $.ajax(ajaxParams).done(function (data, textStatus, jqXHR) {
                 outputResponse(jqXHR, response);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 outputResponse(jqXHR, response);
