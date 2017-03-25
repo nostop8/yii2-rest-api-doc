@@ -30,7 +30,7 @@ class ModuleAsset extends \yii\web\AssetBundle
      * @inheritdoc
      */
     public $depends = [
-        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 
 }
