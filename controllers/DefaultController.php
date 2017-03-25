@@ -3,6 +3,7 @@
 namespace nostop8\yii2\rest_api_doc\controllers;
 
 use yii\helpers\BaseInflector;
+use yii\helpers\Inflector;
 
 class DefaultController extends \yii\base\Controller
 {
@@ -20,6 +21,7 @@ class DefaultController extends \yii\base\Controller
         foreach (\Yii::$app->urlManager->rules as $urlRule) {
             if ($urlRule instanceof \yii\rest\UrlRule) {
                 $entity = [];
+                $urlName = key($urlRule->controller);
                 $controllerName = current($urlRule->controller);
                 $entity['title'] = ucfirst($controllerName);
                 $urlRuleReflection = new \ReflectionClass($urlRule);
@@ -27,7 +29,7 @@ class DefaultController extends \yii\base\Controller
                 $rulesObject->setAccessible(true);
                 $generatedRules = $rulesObject->getValue($urlRule);
 
-                $entity['rules'] = $this->_processRules($generatedRules[$controllerName]);
+                $entity['rules'] = $this->_processRules($generatedRules[$urlName]);
 
                 $rules[] = $entity;
             }
