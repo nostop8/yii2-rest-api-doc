@@ -47,7 +47,7 @@
             localStorage.setItem('rest_api_doc_' + $(this).attr('id'), $(this).val());
         });
 
-        $('form').submit(function (e) {
+        $('.docs-index form').submit(function (e) {
             e.preventDefault();
             var form = this;
             var url = $('[name="url"]', form).val();
