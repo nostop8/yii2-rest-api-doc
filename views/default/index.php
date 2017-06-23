@@ -7,9 +7,12 @@ $this->title = 'Documentation';
 
 $methodColorMap = [
     'GET' => 'info',
+    'HEAD' => 'info',
+    'OPTIONS' => 'info',
     'DELETE' => 'danger',
     'POST' => 'success',
     'PUT' => 'warning',
+    'PATCH' => 'warning',
 ];
 
 ?>
