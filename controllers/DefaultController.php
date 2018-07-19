@@ -23,6 +23,7 @@ class DefaultController extends \yii\base\Controller
                 $entity = [];
                 $urlName = key($urlRule->controller);
                 $controllerName = current($urlRule->controller);
+                $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
                 $entity['title'] = ucfirst($controllerName);
                 $urlRuleReflection = new \ReflectionClass($urlRule);
                 $rulesObject = $urlRuleReflection->getProperty('rules');
