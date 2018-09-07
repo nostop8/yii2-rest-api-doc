@@ -20,8 +20,7 @@ class DefaultController extends \yii\base\Controller
         $rules = [];
         foreach (\Yii::$app->urlManager->rules as $urlRule) {
             if ($urlRule instanceof \yii\rest\UrlRule) {
-                foreach ($urlRule->controller as $urlName => $controllerName)
-                {
+                foreach ($urlRule->controller as $urlName => $controllerName) {
                     $entity = [];
                     $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
                     $entity['title'] = ucfirst($controllerName);
