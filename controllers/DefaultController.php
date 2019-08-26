@@ -24,7 +24,7 @@ class DefaultController extends \yii\base\Controller
                 $urlName = key($urlRule->controller);
                 $controllerName = current($urlRule->controller);
                 $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
-                $entity['title'] = ucfirst($controllerName);
+                $entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
                 $urlRuleReflection = new \ReflectionClass($urlRule);
                 $rulesObject = $urlRuleReflection->getProperty('rules');
                 $rulesObject->setAccessible(true);
