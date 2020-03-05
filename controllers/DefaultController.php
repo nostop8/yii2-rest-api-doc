@@ -20,19 +20,19 @@ class DefaultController extends \yii\base\Controller
         $rules = [];
         foreach (\Yii::$app->urlManager->rules as $urlRule) {
             if ($urlRule instanceof \yii\rest\UrlRule) {
-                $entity = [];
-                $urlName = key($urlRule->controller);
-                $controllerName = current($urlRule->controller);
-                $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
-                $entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
-                $urlRuleReflection = new \ReflectionClass($urlRule);
-                $rulesObject = $urlRuleReflection->getProperty('rules');
-                $rulesObject->setAccessible(true);
-                $generatedRules = $rulesObject->getValue($urlRule);
+                foreach ($urlRule->controller as $urlName => $controllerName) {
+                    $entity = [];
+                    $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
+                    $entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
+                    $urlRuleReflection = new \ReflectionClass($urlRule);
+                    $rulesObject = $urlRuleReflection->getProperty('rules');
+                    $rulesObject->setAccessible(true);
+                    $generatedRules = $rulesObject->getValue($urlRule);
 
-                $entity['rules'] = $this->_processRules($generatedRules[$urlName]);
+                    $entity['rules'] = $this->_processRules($generatedRules[$urlName]);
 
-                $rules[] = $entity;
+                    $rules[] = $entity;
+                }
             }
         }
         return $this->render('index', [
