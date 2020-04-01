@@ -3,7 +3,7 @@
 namespace nostop8\yii2\rest_api_doc\controllers;
 
 use yii\helpers\BaseInflector;
-use yii\helpers\Inflector;
+use yii\web\Response;
 
 class DefaultController extends \yii\base\Controller
 {
@@ -13,6 +13,15 @@ class DefaultController extends \yii\base\Controller
         $view = $this->getView();
         \nostop8\yii2\rest_api_doc\ModuleAsset::register($view);
         parent::init();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function beforeAction($action)
+    {
+        \Yii::$app->response->format = Response::FORMAT_HTML;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex()
@@ -36,7 +45,7 @@ class DefaultController extends \yii\base\Controller
             }
         }
         return $this->render('index', [
-                'rules' => $rules,
+            'rules' => $rules,
         ]);
     }
 
@@ -100,7 +109,7 @@ class DefaultController extends \yii\base\Controller
             $rules[] = $rule;
         }
 
-        usort($rules, function($a, $b) {
+        usort($rules, function ($a, $b) {
             return strcmp($a['url'], $b['url']);
         });
 
