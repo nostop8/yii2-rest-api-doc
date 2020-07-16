@@ -63,3 +63,6 @@ class ExampleController extends \yii\rest\ActiveController
 ```
 
 As you may see from this example, every annotation starts with its name and collon (`:`) and ends with a dot (`.`). Also the body of every annotation type might consist of PHP array. You must follow this rules in order to define properly documentation description and service testing functionality.
+
+## Extra Tip
+While developing API which should be depended on 3-rd party that are not available yet for some reason, it might be useful for you to use an external <a href="https://quickmocker.com">online API mocking tool</a> - <a href="https://quickmocker.com">QuickMocker</a>. It is also useful while integrating your application with webhooks to debug requests that arrive from some 3-rd party while you do not host your application remotely.
