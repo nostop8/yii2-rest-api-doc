@@ -3,6 +3,7 @@
 namespace nostop8\yii2\rest_api_doc\controllers;
 
 use yii\helpers\BaseInflector;
+use yii\helpers\Inflector;
 use yii\web\Response;
 
 class DefaultController extends \yii\base\Controller
@@ -32,7 +33,11 @@ class DefaultController extends \yii\base\Controller
                 foreach ($urlRule->controller as $urlName => $controllerName) {
                     $entity = [];
                     $controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
-                    $entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
+                    if (strpos($urlName, '/') !== FALSE) {
+                        $entity['title'] = Inflector::titleize(str_replace('/', ' - ', $urlName), TRUE);
+                    } else {
+                        $entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
+                    }
                     $urlRuleReflection = new \ReflectionClass($urlRule);
                     $rulesObject = $urlRuleReflection->getProperty('rules');
                     $rulesObject->setAccessible(true);
